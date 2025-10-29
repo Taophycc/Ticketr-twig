@@ -57,6 +57,102 @@ function logout() {
     window.location.href = '/';
 }
 
+function showToast(message, type = 'success') {
+    const toastContainer = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = `fixed top-4 right-4 z-50 animate-slide-in bg-${type === 'success' ? 'green' : 'red'}-500 text-white px-6 py-4 rounded-lg shadow-lg max-w-md flex items-center justify-between`;
+    toast.innerHTML = `<span>${message}</span><button onclick="this.parentElement.remove()" class="ml-4 text-white hover:text-gray-200 focus:outline-none" aria-label="Close notification"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>`;
+    toastContainer.appendChild(toast);
+
+    setTimeout(() => {
+        toast.remove();
+    }, 5000);
+}
+
+function displayError(field, message) {
+    const errorElement = document.getElementById(field + '-error');
+    errorElement.textContent = message;
+    errorElement.classList.remove('hidden');
+    document.getElementById(field).classList.add('border-red-500');
+    document.getElementById(field).classList.remove('border-gray-300', 'dark:border-gray-600');
+}
+
+function clearError(field) {
+    const errorElement = document.getElementById(field + '-error');
+    errorElement.textContent = '';
+    errorElement.classList.add('hidden');
+    document.getElementById(field).classList.remove('border-red-500');
+    document.getElementById(field).classList.add('border-gray-300', 'dark:border-gray-600');
+}
+
+function validateLoginForm() {
+    let isValid = true;
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+
+    clearError('email');
+    clearError('password');
+
+    if (!emailInput.value.trim()) {
+        displayError('email', 'Email is required');
+        isValid = false;
+    } else if (!emailInput.value.includes('@')) {
+        displayError('email', 'Invalid email format');
+        isValid = false;
+    }
+
+    if (!passwordInput.value) {
+        displayError('password', 'Password is required');
+        isValid = false;
+    } else if (passwordInput.value.length < 6) {
+        displayError('password', 'Password must be at least 6 characters');
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+function validateSignupForm() {
+    let isValid = true;
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+
+    clearError('name');
+    clearError('email');
+    clearError('password');
+    clearError('confirmPassword');
+
+    if (!nameInput.value.trim()) {
+        displayError('name', 'Name is required');
+        isValid = false;
+    }
+
+    if (!emailInput.value.trim()) {
+        displayError('email', 'Email is required');
+        isValid = false;
+    } else if (!emailInput.value.includes('@')) {
+        displayError('email', 'Invalid email format');
+        isValid = false;
+    }
+
+    if (!passwordInput.value) {
+        displayError('password', 'Password is required');
+        isValid = false;
+    } else if (passwordInput.value.length < 6) {
+        displayError('password', 'Password must be at least 6 characters');
+        isValid = false;
+    }
+
+    if (passwordInput.value !== confirmPasswordInput.value) {
+        displayError('confirmPassword', 'Passwords do not match');
+        isValid = false;
+    }
+
+    return isValid;
+}
+
 function protectRoute() {
     if (!isAuthenticated() && window.location.pathname !== '/auth/login' && window.location.pathname !== '/auth/signup' && window.location.pathname !== '/') {
         window.location.href = '/auth/login';
