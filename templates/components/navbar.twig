@@ -1,0 +1,32 @@
+<nav id="landing-navbar" class="fixed top-0 left-0 right-0 z-50 p-4 transition-all duration-300">
+    <div class="max-w-container mx-auto flex justify-between items-center">
+        <a href="/" id="navbar-logo" class="text-2xl font-bold text-white" data-text-transparent="text-white" data-text-solid="text-gray-700 dark:text-gray-200">Ticketr</a>
+        <div class="hidden md:flex items-center space-x-6">
+            <a href="#" data-text-color data-text-transparent="text-white hover:bg-white hover:bg-opacity-20" data-text-solid="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800" class="px-3 py-2 rounded-lg">Features</a>
+            <a href="#" data-text-color data-text-transparent="text-white hover:bg-white hover:bg-opacity-20" data-text-solid="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800" class="px-3 py-2 rounded-lg">Pricing</a>
+            <div id="desktop-divider" class="border-l h-6 border-gray-100 dark:border-gray-700"></div>
+            {% include 'components/theme_toggle.twig' %}
+            <a href="/auth/login" data-text-color data-text-transparent="text-white hover:bg-white hover:bg-opacity-20" data-text-solid="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800" class="px-5 py-2 rounded-lg font-medium">Login</a>
+            <a href="/auth/signup" id="desktop-signup-link" class="font-semibold transition shadow-sm bg-white text-primary hover:bg-gray-200 px-5 py-2 rounded-lg">Get Started</a>
+        </div>
+        <div class="md:hidden">
+            <button id="mobile-menu-button" class="text-white" aria-label="Toggle menu" data-text-color data-text-transparent="text-white" data-text-solid="text-gray-700 dark:text-gray-200">
+                <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+        <div class="flex flex-col items-center space-y-2">
+            <a href="#" class="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 px-3 py-2 rounded-lg w-full text-center">Features</a>
+            <a href="#" class="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 px-3 py-2 rounded-lg w-full text-center">Pricing</a>
+            <div class="border-t border-gray-200 dark:border-gray-700 w-full my-2"></div>
+            <a href="/auth/login" class="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 px-5 py-2 rounded-lg font-medium w-full text-center">Login</a>
+            <a href="/auth/signup" class="font-semibold transition shadow-sm bg-primary text-white hover:bg-primary-light px-5 py-2 rounded-lg w-full text-center">Get Started</a>
+            <div class="border-t border-gray-200 dark:border-gray-700 w-full my-2"></div>
+            <div class="py-2">{% include 'components/theme_toggle.twig' %}</div>
+        </div>
+    </div>
+</nav>
+
+

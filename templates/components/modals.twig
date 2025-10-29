@@ -1,0 +1,101 @@
+<div id="ticket-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="modal-title" class="text-2xl font-bold text-gray-900 dark:text-white"></h2>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 dark:text-gray-300 dark:hover:text-white focus:outline-none" aria-label="Close modal"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+            </div>
+            <form id="ticket-form" method="POST" class="space-y-4">
+                <div>
+                    <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Title <span class="text-red-500">*</span></label>
+                    <input id="title" name="title" type="text" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-indigo-400 focus:border-transparent transition bg-white dark:bg-gray-700 text-gray-900 dark:text-white dark:placeholder-gray-400" placeholder="Enter ticket title"/>
+                </div>
+                <div>
+                    <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Description</label>
+                    <textarea id="description" name="description" rows="4" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-indigo-400 transition bg-white dark:bg-gray-700 text-gray-900 dark:text-white dark:placeholder-gray-400" placeholder="Enter ticket description (optional)"></textarea>
+                </div>
+                <div>
+                    <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Status <span class="text-red-500">*</span></label>
+                    <select id="status" name="status" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-indigo-400 transition bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                        <option value="open">Open</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="closed">Closed</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="priority" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Priority</label>
+                    <select id="priority" name="priority" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-indigo-400 transition bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div class="flex gap-3 pt-4">
+                    <button type="button" onclick="closeModal()" class="flex-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 px-4 py-3 rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-500 transition focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">Cancel</button>
+                    <button type="submit" class="flex-1 bg-primary text-white px-4 py-3 rounded-lg font-semibold hover:bg-primary-light transition focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"><span id="submit-text"></span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="delete-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full p-6">
+        <div class="text-center">
+            <div class="w-16 h-16 bg-red-100 dark:bg-red-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Delete Ticket</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-6">Are you sure you want to delete "<strong id="delete-ticket-title"></strong>"? This action cannot be undone.</p>
+            <form id="delete-form" method="POST">
+                <div class="flex gap-3">
+                    <button type="button" onclick="closeDeleteModal()" class="flex-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 px-4 py-3 rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-500 transition focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">Cancel</button>
+                    <button type="submit" class="flex-1 bg-red-500 text-white px-4 py-3 rounded-lg font-semibold hover:bg-red-600 transition focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function openCreateModal() {
+    document.getElementById('modal-title').textContent = 'Create New Ticket';
+    document.getElementById('submit-text').textContent = 'Create';
+    document.getElementById('ticket-form').action = '/tickets/create';
+    document.getElementById('ticket-form').reset();
+    document.getElementById('ticket-modal').classList.remove('hidden');
+}
+
+function openEditModal(ticket) {
+    document.getElementById('modal-title').textContent = 'Edit Ticket';
+    document.getElementById('submit-text').textContent = 'Update';
+    document.getElementById('ticket-form').action = '/tickets/update/' + ticket.id;
+    document.getElementById('title').value = ticket.title;
+    document.getElementById('description').value = ticket.description || '';
+    document.getElementById('status').value = ticket.status;
+    document.getElementById('priority').value = ticket.priority || 'medium';
+    document.getElementById('ticket-modal').classList.remove('hidden');
+}
+
+function closeModal() {
+    document.getElementById('ticket-modal').classList.add('hidden');
+}
+
+function openDeleteModal(id, title) {
+    document.getElementById('delete-ticket-title').textContent = title;
+    document.getElementById('delete-form').action = '/tickets/delete/' + id;
+    document.getElementById('delete-modal').classList.remove('hidden');
+}
+
+function closeDeleteModal() {
+    document.getElementById('delete-modal').classList.add('hidden');
+}
+
+// Auto-hide toasts after 5 seconds
+setTimeout(() => {
+    const successToast = document.getElementById('success-toast');
+    const errorToast = document.getElementById('error-toast');
+    if (successToast) successToast.remove();
+    if (errorToast) errorToast.remove();
+}, 5000);
+</script>
