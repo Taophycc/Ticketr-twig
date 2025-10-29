@@ -4,7 +4,7 @@ A comprehensive ticket management web application built with Twig templating eng
 
 ## 🛠️ Technologies Used
 
-- **PHP 8.0+** - Server-side programming
+- **PHP 8.1+** - Server-side programming
 - **Twig 3.0** - Flexible, fast, and secure templating engine
 - **Tailwind CSS 3.4** - Utility-first CSS framework (via CDN)
 - **JSON File Storage** - Simple file-based data persistence

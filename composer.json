@@ -3,7 +3,7 @@
     "description": "Ticket management system using Twig and PHP",
     "type": "project",
     "require": {
-        "php": ">=8.0",
+        "php": ">=8.1",
         "twig/twig": "^3.0"
     },
     "autoload": {
